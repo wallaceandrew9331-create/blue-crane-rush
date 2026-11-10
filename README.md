@@ -1,6 +1,8 @@
 # Blue Crane Rush
 
-[![ci](https://github.com/wallaceandrew9331-create/coffee-game/actions/workflows/ci.yml/badge.svg)](https://github.com/wallaceandrew9331-create/coffee-game/actions/workflows/ci.yml)
+[![ci](https://github.com/wallaceandrew9331-create/blue-crane-rush/actions/workflows/ci.yml/badge.svg)](https://github.com/wallaceandrew9331-create/blue-crane-rush/actions/workflows/ci.yml)
+
+**[▶ Play it in your browser](https://wallaceandrew9331-create.github.io/blue-crane-rush/)**
 
 A two-minute café rush game for the browser. Mobile orders pile up on the ticket rail at **Blue Crane Coffee (蓝鹤咖啡)**, and you have one shift to pull shots, pour milk, pump syrups and get every cup out before the customer gives up. Perfect drinks served fast earn tips and build a combo. Then it's "one more shift".
 
@@ -126,7 +128,7 @@ Current sweep: first-timer mostly C (some B), casual A/B, good mostly S, expert 
 
 ## Deploying
 
-It's a static site: `npm run build` writes `dist/`, and Vite's `base: './'` lets it work from any path. [`.github/workflows/pages.yml`](.github/workflows/pages.yml) deploys to GitHub Pages on a manual trigger (enable Pages with source "GitHub Actions" first). For Cloudflare Pages or Netlify, use build command `npm ci && npm run build` and output directory `dist`.
+It's a static site: `npm run build` writes `dist/`, and Vite's `base: './'` lets it work from any path. [`.github/workflows/pages.yml`](.github/workflows/pages.yml) deploys to GitHub Pages on a manual trigger; the live build is at https://wallaceandrew9331-create.github.io/blue-crane-rush/ (enable Pages with source "GitHub Actions" first). For Cloudflare Pages or Netlify, use build command `npm ci && npm run build` and output directory `dist`.
 
 ## Credits
 
