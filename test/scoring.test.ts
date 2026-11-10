@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Judgement } from '../src/game/judge.ts';
-import { comboMultiplier, payout } from '../src/game/scoring.ts';
+import { COMBO_CAP, COMBO_STEP, comboMultiplier, payout } from '../src/game/scoring.ts';
 
 const j = (stars: Judgement['stars'], accuracy = 1, quality = 1): Judgement => ({ stars, accuracy, quality, mistakes: [] });
 
@@ -10,9 +10,9 @@ describe('payout', () => {
     expect(p.base).toBe(20);
     expect(p.tip).toBe(9);
     expect(p.combo).toBe(1);
-    expect(p.multiplier).toBeCloseTo(1.1);
-    expect(p.comboBonus).toBeCloseTo(2.9);
-    expect(p.total).toBeCloseTo(31.9);
+    expect(p.multiplier).toBeCloseTo(1 + COMBO_STEP);
+    expect(p.comboBonus).toBeCloseTo(Math.round(29 * COMBO_STEP * 10) / 10);
+    expect(p.total).toBeCloseTo(29 + p.comboBonus);
   });
 
   it('tips less the longer the customer waited', () => {
@@ -38,8 +38,8 @@ describe('payout', () => {
 
   it('caps the combo multiplier', () => {
     expect(comboMultiplier(0)).toBe(1);
-    expect(comboMultiplier(10)).toBeCloseTo(2);
-    expect(comboMultiplier(25)).toBeCloseTo(2);
+    expect(comboMultiplier(COMBO_CAP)).toBeCloseTo(1 + COMBO_STEP * COMBO_CAP);
+    expect(comboMultiplier(COMBO_CAP + 15)).toBe(comboMultiplier(COMBO_CAP));
   });
 
   it('never pays more for a worse drink', () => {

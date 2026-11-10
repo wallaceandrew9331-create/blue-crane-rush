@@ -14,7 +14,7 @@ export interface Payout {
   rejected: boolean;
 }
 
-export const COMBO_STEP = 0.1;
+export const COMBO_STEP = 0.05;
 export const COMBO_CAP = 10;
 export const TIP_RATE = 0.45;
 
@@ -27,7 +27,7 @@ export function comboMultiplier(combo: number): number {
 /**
  * Pay for a served drink.
  * - 3 stars extends the combo, 2 stars holds it, 1 star breaks it, 0 is a remake (no pay).
- * - The multiplier uses the combo *including* this drink, so the first perfect pays ×1.1.
+ * - The multiplier uses the combo *including* this drink, so the first perfect already earns a bonus.
  */
 export function payout(price: number, j: Judgement, patienceLeft: number, combo: number): Payout {
   if (j.stars === 0) return { base: 0, tip: 0, comboBonus: 0, total: 0, combo: 0, multiplier: 1, rejected: true };

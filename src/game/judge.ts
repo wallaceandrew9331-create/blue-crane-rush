@@ -94,7 +94,7 @@ export function judge(spec: DrinkSpec, b: Build): Judgement {
   let stars: Judgement['stars'] = 0;
   if (accuracy >= 0.999 && quality >= 0.85) stars = 3;
   else if (accuracy >= 0.85 && quality >= 0.55) stars = 2;
-  else if (accuracy >= 0.6 && quality >= 0.25) stars = 1;
+  else if (accuracy >= 0.7 && quality >= 0.25) stars = 1;
   if (stars === 0 && mistakes.length === 0) mistakes.push('Poorly made');
 
   return { accuracy, quality, stars, mistakes };

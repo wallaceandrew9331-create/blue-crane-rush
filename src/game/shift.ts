@@ -54,9 +54,9 @@ export interface ShiftStats {
 export function pacing(level: number) {
   const l = Math.min(1, Math.max(0, level));
   return {
-    spawnInterval: 13 - 6.5 * l,
-    maxTickets: l < 0.2 ? 2 : l < 0.55 ? 3 : 4,
-    patience: 62 - 22 * l,
+    spawnInterval: 10 - 5.5 * l,
+    maxTickets: l < 0.15 ? 2 : l < 0.45 ? 3 : l < 0.75 ? 4 : 5,
+    patience: 50 - 20 * l,
   };
 }
 
@@ -134,7 +134,7 @@ export class Shift {
     const draft = generateOrder(this.rng, knobsFor(this.level), this.recent);
     this.recent = [draft.recipe.id, ...this.recent].slice(0, 2);
     const p = pacing(this.level);
-    const patienceMax = p.patience + 2.5 * complexity(draft.spec, draft.mods);
+    const patienceMax = p.patience + 2 * complexity(draft.spec, draft.mods);
     const id = this.nextId++;
     const ticket: Ticket = {
       id,
@@ -179,9 +179,9 @@ export class Shift {
 /** Letter grade for a finished shift. */
 export function shiftGrade(stats: ShiftStats): 'S' | 'A' | 'B' | 'C' | 'D' {
   const e = stats.earnings - stats.walkouts * 8;
-  if (e >= 230) return 'S';
-  if (e >= 170) return 'A';
-  if (e >= 110) return 'B';
-  if (e >= 55) return 'C';
+  if (e >= 420) return 'S';
+  if (e >= 290) return 'A';
+  if (e >= 180) return 'B';
+  if (e >= 90) return 'C';
   return 'D';
 }
