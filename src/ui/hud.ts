@@ -139,10 +139,9 @@ export class Hud {
     el.tabIndex = -1;
     const chips: string[] = [];
     if (t.spec.size !== 'M') chips.push(`<span class="chip size">${LABELS.size[t.spec.size]}</span>`);
-    chips.push(t.spec.iced ? '<span class="chip temp-ice">Iced</span>' : '<span class="chip temp-hot">Hot</span>');
     for (const m of t.mods) if (m.id !== 'makeIced' && m.id !== 'makeHot') chips.push(`<span class="chip mod">${esc(m.label)}</span>`);
     el.innerHTML = `
-      <div class="t-head"><span class="code">${t.code}</span><span>${esc(t.customer)}</span></div>
+      <div class="t-head"><span class="code">${t.code}</span>${t.spec.iced ? '<span class="temp ice">ICED</span>' : '<span class="temp hot">HOT</span>'}<span class="cust">${esc(t.customer)}</span></div>
       <div class="name">${esc(t.recipe.name)}</div>
       <div class="cn">${t.recipe.cn}</div>
       <div class="chips">${chips.join('')}</div>

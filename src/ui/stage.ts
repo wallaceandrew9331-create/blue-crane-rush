@@ -87,7 +87,7 @@ export class Stage {
   private layout(size: Size | null) {
     const { W, H } = this;
     const floorY = H - Math.max(16, H * 0.07);
-    const maxCupH = Math.max(80, Math.min(H * 0.5, 240, W * 0.48));
+    const maxCupH = Math.max(80, Math.min(H * 0.52, 300, W * 0.48));
     const h = maxCupH * (size ? SIZE_SCALE[size] : SIZE_SCALE.M);
     const cx = W > 640 ? W * 0.56 : W * 0.6;
     const headY = Math.max(44, floorY - maxCupH - 46);
@@ -718,7 +718,7 @@ export class Stage {
       } else {
         const milk = liquid === 'mixed' ? '#f2e7d4' : COLORS.liquid[liquid];
         if (!iced) {
-          ctx.fillStyle = mix(milk, '#6a3a1e', Math.min(0.8, espressoRatio * 2.6));
+          ctx.fillStyle = mix(milk, '#6a3a1e', Math.min(0.7, 0.15 + espressoRatio * 3));
           surfacePath();
           ctx.fill();
         } else {
@@ -800,12 +800,15 @@ export class Stage {
     for (const t of ['cheeseFoam', 'milkFoam'] as const) {
       if (!b.toppings.includes(t)) continue;
       const gx = this.easeOutBack(grow(t));
-      const fh = h * (t === 'cheeseFoam' ? 0.13 : 0.1) * gx;
+      const fh = h * (t === 'cheeseFoam' ? 0.17 : 0.14) * gx;
       const frac = Math.min(1, (baseY - foamTop) / h);
       const w = Math.min(topW, this.widthAt(h, frac)) - 6;
-      ctx.fillStyle = t === 'cheeseFoam' ? '#fff2cf' : '#ffffff';
-      ctx.strokeStyle = t === 'cheeseFoam' ? '#efd9a0' : '#e6e9f2';
-      ctx.lineWidth = 1.2;
+      const fg = ctx.createLinearGradient(0, foamTop - fh, 0, foamTop);
+      fg.addColorStop(0, t === 'cheeseFoam' ? '#fff6dc' : '#ffffff');
+      fg.addColorStop(1, t === 'cheeseFoam' ? '#f3dea6' : '#ece3d3');
+      ctx.fillStyle = fg;
+      ctx.strokeStyle = t === 'cheeseFoam' ? '#d9bd78' : '#c9bfae';
+      ctx.lineWidth = 1.5;
       ctx.beginPath();
       ctx.moveTo(x - w / 2, foamTop + 2);
       const bumps = 5;
@@ -1044,9 +1047,9 @@ export class Stage {
       const a = 1 - p.life / p.max;
       if (p.kind === 'steam') {
         // Soft grey-white puffs: visible against the pale wall without outlines.
-        const al = 0.22 * a * Math.min(1, p.life * 3);
+        const al = 0.4 * a * Math.min(1, p.life * 3);
         const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
-        g.addColorStop(0, `rgba(170,182,210,${al})`);
+        g.addColorStop(0, `rgba(160,172,200,${al})`);
         g.addColorStop(1, 'rgba(170,182,210,0)');
         ctx.fillStyle = g;
         ctx.beginPath();
