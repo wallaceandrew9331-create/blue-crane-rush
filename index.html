@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+    <meta name="theme-color" content="#1d3fc4" />
+    <meta name="description" content="Blue Crane Rush: a two-minute café rush game. Pull shots, pour milk and serve mobile orders before your customers lose patience." />
+    <meta property="og:title" content="Blue Crane Rush" />
+    <meta property="og:description" content="Two minutes behind the counter of a busy café. One more shift?" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <title>Blue Crane Rush</title>
+  </head>
+  <body>
+    <div id="app" class="app">
+      <header class="topbar">
+        <div class="brand">
+          <img src="./favicon.svg" alt="" class="logo" width="34" height="34" />
+          <div class="brand-text">
+            <strong>BLUE CRANE</strong>
+            <span>蓝鹤咖啡</span>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat timer" id="timer" title="Shift time left"><span class="clock"></span><b id="timer-val">2:00</b></div>
+          <div class="stat money" title="Earnings">¥<b id="money">0</b></div>
+          <div class="stat combo" id="combo" title="Combo">×<b id="combo-val">0</b></div>
+          <button class="icon-btn" id="mute" aria-label="Mute sound" title="Mute (M)">🔊</button>
+          <button class="icon-btn" id="pause" aria-label="Pause" title="Pause (Esc)">⏸</button>
+        </div>
+      </header>
+
+      <section class="tickets" id="tickets" aria-label="Order queue"></section>
+
+      <main class="station">
+        <div class="stage" id="stage-wrap">
+          <canvas id="stage"></canvas>
+        </div>
+        <aside class="recipe" id="recipe" aria-live="polite"></aside>
+      </main>
+
+      <section class="controls" id="controls" aria-label="Bar controls">
+        <div class="group g-cup">
+          <h3>Cup</h3>
+          <div class="row">
+            <button data-act="size" data-v="S"><span class="cupicon s"></span>S<kbd>1</kbd></button>
+            <button data-act="size" data-v="M"><span class="cupicon m"></span>M<kbd>2</kbd></button>
+            <button data-act="size" data-v="L"><span class="cupicon l"></span>L<kbd>3</kbd></button>
+          </div>
+        </div>
+        <div class="group g-shot">
+          <h3>Espresso <em>tap · tap</em></h3>
+          <div class="row">
+            <button data-act="shot" class="shot-btn"><span class="sw espresso"></span><span class="lbl">Pull shot</span><kbd>Space</kbd></button>
+          </div>
+        </div>
+        <div class="group g-pour">
+          <h3>Pour <em>hold</em></h3>
+          <div class="row">
+            <button data-act="pour" data-v="whole"><span class="sw whole"></span>Milk<kbd>Q</kbd></button>
+            <button data-act="pour" data-v="oat"><span class="sw oat"></span>Oat<kbd>W</kbd></button>
+            <button data-act="pour" data-v="coconut"><span class="sw coconut"></span>Coconut<kbd>E</kbd></button>
+            <button data-act="pour" data-v="water"><span class="sw water"></span>Water<kbd>R</kbd></button>
+          </div>
+        </div>
+        <div class="group g-syrup">
+          <h3>Syrup <em>pumps</em></h3>
+          <div class="row">
+            <button data-act="syrup" data-v="vanilla"><span class="sw vanilla"></span>Vanilla<kbd>A</kbd></button>
+            <button data-act="syrup" data-v="caramel"><span class="sw caramel"></span>Caramel<kbd>S</kbd></button>
+            <button data-act="syrup" data-v="osmanthus"><span class="sw osmanthus"></span>Osmanthus<kbd>D</kbd></button>
+            <button data-act="syrup" data-v="brownSugar"><span class="sw brownSugar"></span>Brown sugar<kbd>F</kbd></button>
+          </div>
+        </div>
+        <div class="group g-top">
+          <h3>Ice &amp; toppings</h3>
+          <div class="row">
+            <button data-act="ice"><span class="sw ice"></span>Ice<kbd>G</kbd></button>
+            <button data-act="top" data-v="cheeseFoam"><span class="sw cheeseFoam"></span>Cheese foam<kbd>Z</kbd></button>
+            <button data-act="top" data-v="milkFoam"><span class="sw milkFoam"></span>Milk foam<kbd>X</kbd></button>
+            <button data-act="top" data-v="cinnamon"><span class="sw cinnamon"></span>Cinnamon<kbd>C</kbd></button>
+            <button data-act="top" data-v="coconutFlakes"><span class="sw coconutFlakes"></span>Flakes<kbd>V</kbd></button>
+          </div>
+        </div>
+        <div class="group g-act">
+          <div class="row">
+            <button data-act="trash" class="trash">Bin<kbd>⌫</kbd></button>
+            <button data-act="serve" class="serve">Serve<kbd>Enter</kbd></button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>
